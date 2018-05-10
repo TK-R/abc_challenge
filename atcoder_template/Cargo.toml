@@ -1,0 +1,6 @@
+[package]
+name = "atcoder_template"
+version = "0.1.0"
+authors = ["Ryosuke Koichi <subtkr@gmail.com>"]
+
+[dependencies]
