@@ -1,65 +1,44 @@
-use std::io::Read;
+use std::io;
 
-macro_rules! get {
-      ($t:ty) => {
-          {
-              let mut line: String = String::new();
-              std::io::stdin().read_line(&mut line).unwrap();
-              line.trim().parse::<$t>().unwrap()
-          }
-      };
-      ($($t:ty),*) => {
-          {
-              let mut line: String = String::new();
-              std::io::stdin().read_line(&mut line).unwrap();
-              let mut iter = line.split_whitespace();
-              (
-                  $(iter.next().unwrap().parse::<$t>().unwrap(),)*
-              )
-          }
-      };
-      ($t:ty; $n:expr) => {
-          (0..$n).map(|_|
-              get!($t)
-          ).collect::<Vec<_>>()
-      };
-      ($($t:ty),*; $n:expr) => {
-          (0..$n).map(|_|
-              get!($($t),*)
-          ).collect::<Vec<_>>()
-      };
-      ($t:ty ;;) => {
-          {
-              let mut line: String = String::new();
-              std::io::stdin().read_line(&mut line).unwrap();
-              line.split_whitespace()
-                  .map(|t| t.parse::<$t>().unwrap())
-                  .collect::<Vec<_>>()
-          }
-      };
-      ($t:ty ;; $n:expr) => {
-          (0..$n).map(|_| get!($t ;;)).collect::<Vec<_>>()
-      };
+#[allow(dead_code)]
+fn read<T>() -> Vec<T>
+where
+    T: std::str::FromStr,
+    T::Err: std::fmt::Debug,
+{
+    let mut buf = String::new();
+    io::stdin().read_line(&mut buf).unwrap();
+    buf.trim()
+        .split_whitespace()
+        .map(|s| s.parse().unwrap())
+        .collect()
+}
+
+/// n行を読み込んで、1文字ずつを二次元のベクタにして返す
+#[allow(dead_code)]
+fn read_char_table(n: usize) -> Vec<Vec<char>> {
+    let mut ret: Vec<Vec<char>> = Vec::new();
+    for _ in 0..n {
+        let mut buf = String::new();
+        io::stdin().read_line(&mut buf).unwrap();
+        let chr = buf.trim().chars().collect();
+        ret.push(chr);
+    }
+    ret
 }
 
 fn main() {
-    let mut buf = String::new();
+    let (h, w) = {
+        let i = read();
+        (i[0], i[1])
+    };
 
-    let (h, w) = get!(usize, usize);
-    std::io::stdin().read_to_string(&mut buf).unwrap();
-    let mut iter = buf.chars();
-
-    let mut table: Vec<Vec<char>> = Vec::new();
-
-    for _ in 0..h {
-        let mut lrt: Vec<char> = (0..w + 1).map(|_| iter.next().unwrap()).collect();
-        table.push(lrt);
-    }
+    let table: Vec<Vec<char>> = read_char_table(h);
 
     let mut ans = "Yes";
 
     if h < 2 || w < 2 {
-        if buf.contains('#') {
+        if table[0][0] == '#' {
             println!("No");
         } else {
             println!("Yes");
