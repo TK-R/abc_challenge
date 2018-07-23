@@ -1,6 +1,6 @@
 [package]
-name = "b"
+name = "ans"
 version = "0.1.0"
-authors = ["tkr"]
+authors = ["Ryosuke Koichi <subtkr@gmail.com>"]
 
 [dependencies]
