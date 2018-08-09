@@ -60,30 +60,48 @@ where
 }
 
 fn main() {
-    // 数値
-    let (n, m, x) = {
-        let i = read::<isize>();
-        (i[0], i[1], i[2])
-    };
-    println!("{},{},{}", n, m, x);
+    let s = read::<String>();
+    let s = &s[0];
 
-    // 数値テーブル
-    let table = read_table::<isize>(2);
-    println!(
-        "{},{}\n{},{}",
-        table[0][0], table[0][1], table[1][0], table[1][1]
-    );
+    let mut cflag = false;
+    let sc = s.chars().collect::<Vec<char>>();
+    let count = s.chars().count();
 
-    // 文字テーブル
-    let ctable = read_char_table(2);
-    println!(
-        "{},{}\n{},{}",
-        ctable[0][0], ctable[0][1], ctable[1][0], ctable[1][1]
-    );
+    if sc[0] != 'A' {
+        println!("WA");
+        return;
+    }
 
-    // 一列の数値
-    let array = read_array::<usize>(3);
-    for val in array {
-        println!("{}", val);
+    if sc[1] == 'C' || sc[1].is_uppercase() {
+        println!("WA");
+        return;
+    }
+
+    if sc[count - 1] == 'C' || sc[count - 1].is_uppercase() {
+        println!("WA");
+        return;
+    }
+
+    for num in 2..count - 1 {
+        if sc[num] == 'C' {
+            if cflag == false {
+                cflag = true;
+                continue;
+            } else {
+                println!("WA");
+                return;
+            }
+        }
+
+        if sc[num].is_uppercase() {
+            println!("WA");
+            return;
+        }
+    }
+
+    if cflag == false {
+        println!("WA");
+    } else {
+        println!("AC");
     }
 }

@@ -61,29 +61,16 @@ where
 
 fn main() {
     // 数値
-    let (n, m, x) = {
+    let r = {
         let i = read::<isize>();
-        (i[0], i[1], i[2])
+        i[0]
     };
-    println!("{},{},{}", n, m, x);
 
-    // 数値テーブル
-    let table = read_table::<isize>(2);
-    println!(
-        "{},{}\n{},{}",
-        table[0][0], table[0][1], table[1][0], table[1][1]
-    );
-
-    // 文字テーブル
-    let ctable = read_char_table(2);
-    println!(
-        "{},{}\n{},{}",
-        ctable[0][0], ctable[0][1], ctable[1][0], ctable[1][1]
-    );
-
-    // 一列の数値
-    let array = read_array::<usize>(3);
-    for val in array {
-        println!("{}", val);
+    if r < 1200 {
+        println!("ABC");
+    } else if r < 2800 {
+        println!("ARC");
+    } else {
+        println!("AGC");
     }
 }
