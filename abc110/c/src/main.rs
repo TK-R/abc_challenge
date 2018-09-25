@@ -59,10 +59,7 @@ where
     array
 }
 
-
-
 fn main() {
-
     // 文字テーブル
     let mut buf1 = String::new();
     io::stdin().read_line(&mut buf1).unwrap();
@@ -73,17 +70,16 @@ fn main() {
     let mut buf2 = String::new();
     io::stdin().read_line(&mut buf2).unwrap();
     let tc = buf2.chars().collect::<Vec<char>>();
-    
-    let mut c = Vec::<(char,char)>::with_capacity(1024);
 
-    
+    let mut c = Vec::<(char, char)>::with_capacity(1024);
+
     for i in 0..count {
-        let mut  flag = true;
+        let mut flag = true;
         for cc in &c {
             if cc.0 == sc[i] && cc.1 == tc[i] {
                 flag = false;
             }
-             
+
             if sc[i] != tc[i] {
                 if cc.0 == sc[i] && cc.1 != tc[i] {
                     println!("No");
@@ -91,16 +87,14 @@ fn main() {
                 } else if cc.0 != sc[i] && cc.1 == tc[i] {
                     println!("No");
                     return;
-                } 
+                }
             }
-
         }
-        
-        if flag { 
+
+        if flag {
             c.push((sc[i], tc[i]));
         }
     }
 
     println!("Yes");
-
 }
