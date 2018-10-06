@@ -88,19 +88,20 @@ fn main() {
         i[0]
     };
     let a = read::<u64>();
-    let mut i = 0;
 
-    let mut vec1: Vec<u64> = Vec::new();
-    let mut vec2: Vec<u64> = Vec::new();
+    let vec1 = a
+        .iter()
+        .enumerate()
+        .filter(|&(index, _)| index % 2 == 0)
+        .map(|(_, &value)| value)
+        .collect::<Vec<u64>>();
 
-    for ai in a {
-        if i % 2 == 0 {
-            vec1.push(ai);
-        } else {
-            vec2.push(ai);
-        }
-        i += 1;
-    }
+    let vec2 = a
+        .iter()
+        .enumerate()
+        .filter(|&(index, _)| index % 2 == 1)
+        .map(|(_, &value)| value)
+        .collect::<Vec<u64>>();
 
     let mode1 = mode(&vec1);
     let mode2 = mode(&vec2);
